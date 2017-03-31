@@ -1,6 +1,7 @@
-	
-
-
+<?php
+	require 'connect.inc.php';
+	require 'core.inc.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

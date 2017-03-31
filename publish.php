@@ -1,4 +1,7 @@
-	
+<?php
+	require 'connect.inc.php';
+	require 'core.inc.php';
+?>	
 <!DOCTYPE>
 <head lang="en">
 <!-- Latest compiled and minified CSS -->

@@ -64,8 +64,10 @@
 				</div>
 					<ul class="nav navbar-nav">
 						<li class="active"><a href="#">Home</a></li>
-						<li><a href="publish_add.php">Publish Your Ad</a></li>
-						<li><a href="register.php">Register Now</a></li><li><a href="loginform.inc.php">Login</a></li></ul>					
+						<li><a href="publish.php">Publish Your Ad</a></li>
+						<li><a href="register.php">Register Now</a></li>
+						<li><a href="login.php">Login</a></li>
+					</ul>					
 			</div>
 		</nav>
 	</div>

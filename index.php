@@ -55,19 +55,33 @@
 <body  class="container text-left" >
 	<div>
 		<div class="row page-header">
-			<div class="col-xs-6"><h1>Sale My Books</h1></div>
+			<div class="col-xs-6"><h1>Sell My Books</h1></div>
 		</div>
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a href="index.php" class="navbar-brand">Sale My Books</a>
+					<a href="index.php" class="navbar-brand">Sell My Books</a>
 				</div>
 					<ul class="nav navbar-nav">
 						<li class="active"><a href="#">Home</a></li>
 						<li><a href="publish.php">Publish Your Ad</a></li>
-						<li><a href="register.php">Register Now</a></li>
+<?
+	if(!is_logged_in()){
+		echo		'	<li><a href="register.php">Register Now</a></li>
 						<li><a href="login.php">Login</a></li>
-					</ul>					
+					</ul>
+					';
+	}
+	else{
+		echo 		'	<li><a href="myads.php">My Ads</a></li>
+						<li><a href="logout.php">Logout</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#">Hi '. $_SESSION['name'] .' !</a></li>
+					</ul>
+					';
+	}
+?>					
 			</div>
 		</nav>
 	</div>

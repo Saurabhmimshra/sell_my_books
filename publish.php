@@ -1,6 +1,9 @@
 <?php
 	require 'connect.inc.php';
 	require 'core.inc.php';
+
+	if(!is_logged_in())
+		header('Location: login.php');
 ?>	
 <!DOCTYPE>
 <head lang="en">
@@ -40,7 +43,12 @@
 					<ul class="nav navbar-nav">
 						<li><a href="index.php">Home</a></li>
 						<li class="active"><a href="#">Publish Your Ad</a></li>
-						<li><a href = "my_ads.php" >My Ads</a></li><li><a href = "logout.php">Logout </a></li></ul><ul class="nav navbar-nav navbar-right"><li><a href="#">Hi mai hun na !</a></li></ul>					
+						<li><a href = "myads.php" >My Ads</a></li>
+						<li><a href = "logout.php">Logout </a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+							<li><a href="#"><? echo $_SESSION['name']; ?></a></li>
+					</ul>					
 			</div>
 		</nav>
 	</div>

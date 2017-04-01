@@ -36,12 +36,13 @@
 			
 			require 'connect.inc.php';
 
-				$query = "SELECT `id` FROM `users` WHERE `email` = '". mysql_real_escape_string($username). "' AND `password` = '" .mysql_real_escape_string($password). "'" ;
+				$query = "SELECT `id`, `name` FROM `users` WHERE `email` = '". mysql_real_escape_string($username). "' AND `password` = '" .mysql_real_escape_string($password). "'" ;
 				if ($query_run = mysql_query($query)) {
 					if(mysql_num_rows($query_run)==NULL){
 						$error = '<div class="alert alert-danger"><strong>Invalid email or password.</strong></div>';
 					}else{
 						$_SESSION['user_id'] = mysql_result($query_run, 0,'id');
+						$_SESSION['name'] = mysql_result($query_run, 0,'name');
 					}
 
 				}else{

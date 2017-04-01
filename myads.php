@@ -1,6 +1,9 @@
 <?php
 	require 'connect.inc.php';
 	require 'core.inc.php';
+
+	if(!is_logged_in())
+		header('Location: login.php');
 ?>
 	
 <!DOCTYPE html>
@@ -32,17 +35,22 @@
 
 	<div>
 		<div class="row page-header">
-			<div class="col-xs-6"><h1>Sale My Books</h1></div>
+			<div class="col-xs-6"><h1>Sell My Books</h1></div>
 		</div>
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a href="index.php" class="navbar-brand">Sale My Books</a>
+					<a href="index.php" class="navbar-brand">Sell My Books</a>
 				</div>
 					<ul class="nav navbar-nav">
 						<li><a href="index.php">Home</a></li>
-						<li><a href="publish_add.php">Publish Your Ad</a></li>
-						<li class="active" ><a href = "#" >My Ads</a></li><li><a href = "logout.php">Logout </a></li></ul><ul class="nav navbar-nav navbar-right"><li><a href="#">Hi mai hun na !</a></li></ul>					
+						<li><a href="publish.php">Publish Your Ad</a></li>
+						<li class="active" ><a href = "#" >My Ads</a></li>
+						<li><a href = "logout.php">Logout </a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#"><? echo $_SESSION['name']; ?></a></li>
+					</ul>					
 			</div>
 		</nav>
 	</div>

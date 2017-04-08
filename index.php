@@ -19,11 +19,11 @@
 	<!-- font faimily link (google fonts)-->
 	<link href="https://fonts.googleapis.com/css?family=Lobster|Noto+Serif|Ubuntu" rel="stylesheet">
 	
-	<title>Sale My Books</title>
+	<title>Sell My Books</title>
 	
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="Sale and Buy engineering books.We offers free intercollege classified ads of books for students.Sale My Books provides a simple solution to the students to get low priced books.">
+	<meta name="description" content="Sale and Buy engineering books.We offers free intercollege classified ads of books for students.Sell My Books provides a simple solution to the students to get low priced books.">
 	<meta name="author" content="Saurabh Mishra (IT Student,NIEC)">
 	<meta name="keywords" content="Books, Sale, Students, Ads, Sale, Purchase">
 	<meta name="robots" content="index,follow">

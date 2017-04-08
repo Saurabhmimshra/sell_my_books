@@ -158,17 +158,17 @@
 						<div class="form-group">
 							<label for="Name"><h3>Name:<span style="color: red;">*</span></h3></label>
 							<?php echo $name_error;?>
-														<input type="text" id = "Name" class="form-control input-lg" name="name" value="">
+														<input type="text" id = "Name" class="form-control input-lg" name="name" value="<?echo $name;?>">
 						</div>
 						<div class="form-group">
 							<label for="Mobile"><h3>Mobile:<span style="color: red;">*</span></h3></label>
 							<?php echo $contact_error;?>	
-							<input type="text" name="contact" id="Mobile" class="form-control input-lg" value="" maxlength="10">
+							<input type="text" name="contact" id="Mobile" class="form-control input-lg" value="<?echo $contact; ?>" maxlength="10">
 						</div>
 						<div class="form-group">
 							<label for="Email"><h3>Email:<span style="color: red;">*</span></h3></label>
 													<?php echo $email_error;?>
-														<input type="email" id="Email" class="form-control input-lg" name="email" value="" maxlength="40">
+														<input type="email" id="Email" class="form-control input-lg" name="email" value="<?echo $email;?>" maxlength="40">
 						</div>
 						<div class="form-group">
 							<label for="Password"><h3>Password:<span style="color: red;">*</span></h3></label>

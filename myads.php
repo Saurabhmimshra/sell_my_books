@@ -55,23 +55,50 @@
 		</nav>
 	</div>
 
-	<div class="container">
-		<div class="alert alert-success" style="text-align : center;"><p><strong>Your Books</strong></p></div><div class="container"><div class="row">
-													<div class="col-sm-1"></div>
-													<div class="col-sm-10">
+	
+		
+<?
+		$msg = 'Your Books';
+
+			if(isset($_POST['deleteItem'])){
+				$item = $_POST['deleteItem'];
+				if(!empty($item)){
+					$query = "DELETE FROM `advertisement` WHERE `ad_id` = '". $item ."'";
+					if(mysql_query($query)){
+						$msg ='Ad removed successfully.';
+					}
+				}
+			}
+
+
+
+			$query = "SELECT `contact`, `bname`, `sub`, `ad_id`, `price`, `author`, `edition`, `descrip` FROM `users` INNER JOIN `advertisement` ON `users`.`id` = `advertisement`.`id` WHERE `users`.`id` = '".$_SESSION['user_id']."'";
+			if ($result  = mysql_query($query)) {
+				if(mysql_num_rows($result)==0){
+					echo '<div class = "alert alert-danger" style = "text-align : center;"><strong>You don\'t have any ad published.</strong></div>';
+				}else{
+					echo '<div class="container">
+						<div class="alert alert-success" style="text-align : center;">
+							<p><strong>'. $msg .'</strong></p>
+						</div>
+						<div class="container">';
+					while($row = mysql_fetch_assoc($result)){
+						echo '<div class="row">
+												<div class="col-sm-1"></div>
+												<div class="col-sm-10">
 														<div class="panel panel-info">
 															<div class="panel-heading">
 																	<h5 class="panel-title">
 																		<div class="row">
 																			<div class="col-sm-8">
-																				c programming
+																				'. $row['bname'] .'
 																			</div>
 																			<div class="col-sm-2">
-																				<span id="price_tag"> Rs. 180</span>
+																				<span id="price_tag"> Rs. '. $row['price'] .'</span>
 																			</div>
 																			<div class = "col-sm-2">
-																				<form action = "my_ads.php" method = "POST">
-																					<input type="text" name="deleteItem" value="3" hidden/>
+																				<form action = "myads.php" method = "POST">
+																					<input type="text" name="deleteItem" value="'. $row['ad_id'] .'" hidden/>
 																					<input type = "Submit" name = "deleteinput" value = "Remove" class = "btn btn-danger btn-md"/>
 																				</form>
 																			</div>
@@ -85,7 +112,7 @@
 																			<p><strong><span id="detail_heading">Subject</span></strong></p>
 																		</div>
 																		<div class="col-sm-8">
-																			<p>Introduction to Programming</p>
+																			<p>'. $row['sub'] .'</p>
 																		</div>
 																	</div>
 																	<div class="row">
@@ -93,7 +120,7 @@
 																			<p><strong><span id="detail_heading">Author</span></strong></p>
 																		</div>
 																		<div class="col-sm-8">
-																			<p>Denis</p>
+																			<p>'. $row['author'] .'</p>
 																		</div>
 																	</div>
 																	<div class="row">
@@ -101,7 +128,7 @@
 																			<p><strong><span id="detail_heading">Edition</span></strong></p>
 																		</div>
 																		<div class="col-sm-8">
-																			<p>2000</p>
+																			<p>'. $row['edition'] .'</p>
 																		</div>
 																	</div>
 																	<div class="row">
@@ -109,7 +136,7 @@
 																			<p><strong><span id="detail_heading">Contact</span></strong></p>
 																		</div>
 																		<div class="col-sm-8">
-																			<p>5555555555</p>
+																			<p>'. $row['contact'] .'</p>
 																		</div>
 																	</div>
 																	<div class="row">
@@ -117,7 +144,7 @@
 																			<p><strong><span id="detail_heading">Description</span></strong></p>
 																		</div>
 																		<div class="col-sm-8">
-																			<p>bla bla</p>
+																			<p>'. wordwrap($row['descrip'],80,'<br>') .'</p>
 																		</div>
 																	</div>
 																</div>
@@ -125,7 +152,16 @@
 												  		</div>
 													</div>
 													<div class="col-sm-1"></div>
-												  </div></div>	</div>
+												</div>';
+					}
+				}
+			}else{
+				die($conn_errror);
+			}
+?>
+													
+						</div>
+				</div>
 
 </body>
 </html>

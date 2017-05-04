@@ -20,7 +20,7 @@
 	<!-- font faimily link (google fonts)-->
 	<link href="https://fonts.googleapis.com/css?family=Lobster|Noto+Serif|Ubuntu" rel="stylesheet">
 	
-	<title>Sale My Books | Publish Ad</title>
+	<title>Sell My Books | Publish Ad</title>
 	
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,6 +53,11 @@
 		</nav>
 	</div>
 
+<?
+	$Book_Name_err = $Subject_err = $Author_err = $Edition = $Price_err = $Contact_err = $Description_err = '';
+	$Book_Name = $Subject = $Author = $Author = $Edition = $Price = $Contact = $Description = '';
+	if(iis_set_dir_securit, virtual_path, directory_flags))
+?>
 	
 	
 	<form action="publish_add.php" method ="POST">

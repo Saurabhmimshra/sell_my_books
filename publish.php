@@ -54,13 +54,111 @@
 	</div>
 
 <?
-	$Book_Name_err = $Subject_err = $Author_err = $Edition = $Price_err = $Contact_err = $Description_err = '';
+	$Book_Name_err = $Subject_err = $Author_err = $Edition_err = $Price_err = $Contact_err = $Description_err = '';
 	$Book_Name = $Subject = $Author = $Author = $Edition = $Price = $Contact = $Description = '';
-	if(iis_set_dir_securit, virtual_path, directory_flags))
+	$iserror = False;
+	
+	if(isset($_POST['Book_Name'])){
+		$Book_Name = test_input($_POST['Book_Name']);
+		if(empty($Book_Name)){
+			$Book_Name_err = '<div class="alert alert-danger"><strong>Book name is required</strong></div>';
+			$iserror = True;
+		}
+		else if(strlen($Book_Name) <= 4 ){
+			$Book_Name_err = '<div class="alert alert-danger"><strong>Book name must be of altleast 4 letters</strong></div>';
+			$iserror  = True;
+		}
+	}
+
+	if (isset($_POST['Subject'])) {
+		$Subject = test_input($_POST['Subject']);
+		if($Subject == 'Subject'){
+			$Subject_err = '<div class="alert alert-danger"><strong>Please Select Subject</strong></div>';
+			$iserror = True;
+		}
+	}
+
+	if (isset($_POST['Author'])) {
+		$Author = test_input($_POST['Author']);
+		if(empty($Author)) {
+			$Author_err = '<div class="alert alert-danger"><strong>Author Name is required</strong></div>';
+			$iserror = True;
+		}else if(strlen($Author) <=4){
+			$Author_err = '<div class="alert alert-danger"><strong>Author name must be of altleast 4 letters</strong></div>';
+			$iserror = True;
+		}
+	}
+
+	if (isset($_POST['Edition'])) {
+		$Edition = test_input($_POST['Edition']);
+		if (empty($Edition)) {
+			$Edition_err = '<div class="alert alert-danger"><strong>Edition is required.</strong></div>';
+			$iserror = True;
+		}else if(!is_numeric($Edition) or strlen($Edition) != 4){
+			$Edition_err = '<div class="alert alert-danger"><strong>Must be 4 digit (ex. 2017)</strong></div>';
+			$iserror = True;
+		}
+	}
+
+	if (isset($_POST['Price'])) {
+		$Price = test_input($_POST['Price']);
+		if(empty($Price)){
+			$Price_err = '<div class="alert alert-danger"><strong>Price is required.</strong></div>';
+			$iserror = True;
+		}else if (!is_numeric($Price)) {
+			$Price_err = '<div class="alert alert-danger"><strong>Must be in digits.</strong></div>';
+			$iserror = True;
+		}
+	}
+
+	if(isset($_POST['Contact'])){
+		$Contact = test_input($_POST['Contact']);
+		echo $Contact;
+		if(empty($Contact)){
+			$Contact_err = '<div class="alert alert-danger"><strong>Contact is required.</strong></div>';
+			$iserror = True;
+		}else{
+			if (strlen($Contact)< 10) {
+				$Contact_err = '<div class="alert alert-danger"><strong>Must be of 10 digits.</strong></div>';
+				$iserror = True;
+			}
+			if($result  =  mysql_query("select `id` from `users` where '" . mysql_real_escape_string($Contact) . "' = `Contact`")){
+				if(mysql_num_rows($result) ==0){
+					$Contact_err = '<div class="alert alert-danger"><strong>Contact number must be same as registered mobile number.</strong></div>';
+					$iserror = True;
+				}
+			}
+			for ($i=0; $i < 10; $i++) { 
+				if(!is_numeric($Contact[$i])){
+					$Contact_err = '<div class="alert alert-danger"><strong>Must be in digits.</strong></div>';
+					$iserror = True;
+					break;
+				}
+			}
+		}
+	}
+
+	if (isset($_POST['Description'])) {
+		$Description = test_input($_POST['Description']);
+		if (empty($Description)) {
+			$Description_err = '<div class="alert alert-danger"><strong>Description can\'t be empty.</strong></div>';
+			$iserror = True;
+		}
+	}
+
+	if(!$iserror and !empty($Book_Name) and !empty($Contact) and !empty($Edition)){
+		$query = "INSERT INTO `advertisement` VALUES('','". $_SESSION['user_id'] ."','". mysql_real_escape_string($Book_Name) ."','". mysql_real_escape_string($Subject) ."','". mysql_real_escape_string($Author) ."','". mysql_real_escape_string($Edition) ."','". mysql_real_escape_string($Price) ."','". mysql_real_escape_string($Description) ."')";
+		if ($result = mysql_query($query)) {
+			echo '<div class = "alert alert-success" style = "text-align: center;"><strong>Your ad successfully published.</strong></div>';
+		}else{
+			die($conn_error);
+		}
+	}
+
 ?>
 	
 	
-	<form action="publish_add.php" method ="POST">
+	<form action="publish.php" method ="POST">
 		<div class="container">
 		<div class="alert alert-danger" style="text-align : center;"><p><strong><span style="color: red; font-weight: bolder; font-size: 20px;">*</span> Required Fields.</strong></p></div>
 			<div class="row">
@@ -69,11 +167,13 @@
 				<div class="col-sm-6">
 						<div class="form-group">
 							<label for="Book_Name"><h3>Book Name: <span style="color: red;">*</span></h3></label>
-														<input type="text" name="Book_Name" class="input-lg form-control" maxlength="40" value="" id="Book_Name">
+							<?echo $Book_Name_err;?>
+							<input type="text" name="Book_Name" class="input-lg form-control" maxlength="40" value="<?echo $Book_Name?>" id="Book_Name">
 						</div>	
 						<div class="form-group">
 							<label for="Subject"><h3>Subject:<span style="color: red;">*</span></h3></label>
-														<select  name="Subject" class="input-lg form-control" id="Subject">
+							<?echo $Subject_err;?>
+								<select  name="Subject" class="input-lg form-control" id="Subject">
 								<option  >Subject</option>
 								<option value = "Advanced Computer Architecture">Advanced Computer Architecture</option><option value = "Advanced Computer Networks">Advanced Computer Networks</option><option value = "Advanced Control Systems">Advanced Control Systems</option><option value = "Advanced Methods of Mfg.">Advanced Methods of Mfg.</option><option value = "Advanced VLSI Design">Advanced VLSI Design</option><option value = "Algorithm Analysis & Design">Algorithm Analysis & Design</option><option value = "Analog Electronics">Analog Electronics</option><option value = "Application of Power Electronics to Power Systems">Application of Power Electronics to Power Systems</option><option value = "Applied Chemistry">Applied Chemistry</option><option value = "Applied Mathematics">Applied Mathematics</option><option value = "Applied Physics">Applied Physics</option><option value = "Applied Physics">Applied Physics</option><option value = "Artificaial Intelligence">Artificaial Intelligence</option><option value = "Artificial Intelligence">Artificial Intelligence</option><option value = "Automotive Engineering,
 ">Automotive Engineering,
@@ -81,23 +181,28 @@
 						</div>
 						<div class="form-group">
 							<label for="Author"><h3>Author: <span style="color: red;">*</span></h3></label>
-														<input type="text" name="Author" class="input-lg form-control" id="Author" maxlength="40" value=""">
+							<?echo $Author_err;?>							
+							<input type="text" name="Author" class="input-lg form-control" id="Author" maxlength="40" value="<?echo $Author;?>">
 						</div>
 						<div class="form-group">
 							<label for="Edition"><h3>Edition: <span style="color: red;">*</span></h3></label>
-														<input type="text" name="Edition" id="Edition" class="form-control input-lg" maxlength="4" value="">
+							<?echo $Edition_err;?>
+							<input type="text" name="Edition" id="Edition" class="form-control input-lg" maxlength="4" value="<?echo $Edition;?>">
 						</div>	
 						<div class="form-group">
 							<label for="Price"><h3>Price: (Rs.)<span style="color: red;">*</span></h3></label>
-														<input type="text" name="Price" id ="Price" class="form-control input-lg" maxlength="5" value="">
+							<?echo $Price_err;?>
+							<input type="text" name="Price" id ="Price" class="form-control input-lg" maxlength="5" value="<?echo $Price;?>">
 						</div>
 						<div class="form-group">
 							<label for="Contact"><h3>Contact:<span style="color: red;">*</span></h3></label>
-														<input type="text" name="Contact" id ="Contact" class="form-control input-lg" maxlength="10" value="">
+							<?echo $Contact_err;?>				
+							<input type="text" name="Contact" id ="Contact" class="form-control input-lg" maxlength="10" value="<?echo $Contact;?>">
 						</div>
 						<div class="form-group">
 							<label for="Description"><h3>Description:</h3></label>
-														<textarea name = "Description" id="Description" class="input-lg form-control" rows="10" cols="50" maxlength="500"></textarea>
+							<?echo $Description_err;?>
+							<textarea name = "Description" id="Description" class="input-lg form-control" rows="10" cols="50" maxlength="500"><?echo $Description;?></textarea>
 						</div>
 						<div >
 							<input type="submit" class="btn btn-lg btn-primary btn-block" value="Publish"><br><br>

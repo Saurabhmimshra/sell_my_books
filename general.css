@@ -1,0 +1,30 @@
+h1{
+	font-family: 'Lobster', cursive;
+	font-weight: normal;
+	font-size: 40px;
+}
+
+h2{
+	font-family: 'Noto Serif', serif;
+	font-weight: normal;
+	font-size: 45px;
+}
+
+#detail_heading{
+	font-size: 15px;
+}
+p{
+	font-size: 15px;
+	font-family: 'Ubuntu', sans-serif;
+	font-weight: normal;
+}
+
+.panel-title{
+	font-weight: bold;
+	font-size: 20px;
+}
+
+#price_tag{
+	color: green;
+	font-style: italic;
+}

@@ -64,7 +64,7 @@
 			$Book_Name_err = '<div class="alert alert-danger"><strong>Book name is required</strong></div>';
 			$iserror = True;
 		}
-		else if(strlen($Book_Name) <= 4 ){
+		else if(strlen($Book_Name) < 4 ){
 			$Book_Name_err = '<div class="alert alert-danger"><strong>Book name must be of altleast 4 letters</strong></div>';
 			$iserror  = True;
 		}
@@ -83,7 +83,7 @@
 		if(empty($Author)) {
 			$Author_err = '<div class="alert alert-danger"><strong>Author Name is required</strong></div>';
 			$iserror = True;
-		}else if(strlen($Author) <=4){
+		}else if(strlen($Author) <4){
 			$Author_err = '<div class="alert alert-danger"><strong>Author name must be of altleast 4 letters</strong></div>';
 			$iserror = True;
 		}
@@ -113,7 +113,6 @@
 
 	if(isset($_POST['Contact'])){
 		$Contact = test_input($_POST['Contact']);
-		echo $Contact;
 		if(empty($Contact)){
 			$Contact_err = '<div class="alert alert-danger"><strong>Contact is required.</strong></div>';
 			$iserror = True;

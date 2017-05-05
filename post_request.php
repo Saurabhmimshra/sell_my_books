@@ -20,7 +20,7 @@
 				  												<div class = "panel-body"><br>
 				  													<p><span class ="text-info"><u>'. $row['name'] .' :</u></span>
 					  													 '. $row['post'] .'<br>
-					  													 <span class = "text-muted small"> Posted on '. date("F j, Y, g:i a",$row['time']) .' </span>
+					  													 <span class = "text-muted small"> Posted on '. date("F j, Y",$row['time']) .' </span>
 				  													</p>';
 				$sql = "SELECT `users`.`name`, `requests`.`r_id`, `comments`.`time`, `comments`.`comment` FROM `users` INNER JOIN `comments` ON `users`.`id` = `comments`.`id` INNER JOIN `requests` ON `requests`.`r_id` = `comments`.`p_id` WHERE `comments`.`p_id` = '". $row['r_id'] ."' ORDER BY `c_id`";
 				if ($run = mysql_query($sql)) {
@@ -30,7 +30,7 @@
 				  														<div class = "col-sm-10">
 																			<div id="replies_of_'. $r['r_id'].'">
 																				<p><span class ="text-info"><u>'. $r['name'] .' :</u></span>'. $r['comment'] .'<br>
-																					<span class = "text-muted small"> Posted on '. date("F j, Y, g:i a", $r['time']) .'</span>
+																					<span class = "text-muted small"> Posted on '. date("F j, Y", $r['time']) .'</span>
 																				</p>
 																			</div>					
 																		</div>

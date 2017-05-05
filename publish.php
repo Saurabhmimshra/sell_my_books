@@ -149,6 +149,7 @@
 		$query = "INSERT INTO `advertisement` VALUES('','". $_SESSION['user_id'] ."','". mysql_real_escape_string($Book_Name) ."','". mysql_real_escape_string($Subject) ."','". mysql_real_escape_string($Author) ."','". mysql_real_escape_string($Edition) ."','". mysql_real_escape_string($Price) ."','". mysql_real_escape_string($Description) ."')";
 		if ($result = mysql_query($query)) {
 			echo '<div class = "alert alert-success" style = "text-align: center;"><strong>Your ad successfully published.</strong></div>';
+				$Book_Name = $Subject = $Author = $Author = $Edition = $Price = $Contact = $Description = '';
 		}else{
 			die($conn_error);
 		}

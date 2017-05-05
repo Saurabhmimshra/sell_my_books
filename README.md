@@ -20,3 +20,12 @@ Technologies Used:-
 	➢ AJAX
 	➢ BOOTSTRAP
 	➢ JAVASCRIPT
+
+
+Database Schema:-
+----------------
+	1. users (id, email, name, contact, password)
+	2. advertisement (ad_id, id, bname, sub, author, edition, price, descrip)
+	3. requests (r_id, id, time, post)
+	4. comments (c_id, id, p_id, time, comment)
+	

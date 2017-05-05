@@ -2,7 +2,7 @@
 Project description:-
 ---------------------
 
-	Sale My Books is an E-commerce website for books. Where one can sell and his/her books and can interact to seller and buyer.
+	Sale My Books is an E-commerce website for books. Where one can sell and buy books and can interact to seller and buyer.
 
 Problem Solved By Sale My Books:-
 ---------------------------------

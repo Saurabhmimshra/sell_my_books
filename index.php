@@ -46,7 +46,9 @@
 			request_form.Request.value = "";
 		}
 
-		
+	function gotologin(){
+		window.location.href = "./login.php";
+	}		
 
 		
 	</script>
@@ -325,81 +327,61 @@
 				}
 			}
 		}else{
-			echo mysql_error();
+			die($conn_error);
 		}
 ?>
 											</div>
 
-		  									<div id ="Requests" class="tab-pane fade">		<div id ="posted_requests" >			<div class="panel panel-default">
-				  												<div class = "panel-body"><br>
-				  													<p><span class ="text-info"><u>saurabh :</u></span> user one second request for any book<br><span class = "text-muted small"> Posted on February 4, 2017 </span></p>
-				  														<div class = "row">
-				  																	  														
-				  															<div class = "col-sm-1"></div>
-					  														<div class = "col-sm-10">
+		  									<div id ="Requests" class="tab-pane fade">
+		  										<div id ="posted_requests" >
 
-					  																	<script type="text/javascript">
-																							function post_comment2(){
-
-																								var comment = comment_form2.Comment.value;
-																								//alert(comment);
-																								if(comment == ""){
-																									alert("Please write some text to reply.");
-																								}
-																								var xmlhttp = new XMLHttpRequest();
-																								xmlhttp.onreadystatechange = function() {
-																									if (this.readyState == 4 && this.status == 200){
-																										var replies = document.getElementById("replies_of_2");
-																										replies.innerHTML = xmlhttp.responseText;
-																									}
-																								}
-																								xmlhttp.open("GET", "post_comment.php?Comment="+comment+"&Parent_id=2", true);
-																								xmlhttp.send();
-																								comment_form2.Comment.value = "";
-																							}
-																						</script>
-					  															
-					  															<div id="replies_of_2">	<p><span class ="text-info"><u>saurabh :</u></span> having some errors :)
-				  																						<br><span class = "text-muted small"> Posted on February 4, 2017 </span></p>	<p><span class ="text-info"><u>saurabh :</u></span> o thaari
-				  																						<br><span class = "text-muted small"> Posted on February 4, 2017 </span></p></div>										</div>
-					  														<div class = "col-sm-1"></div>	
-					  													</div>
-					  																			
-				  												</div>
+			  										<form name = "request_form" method = "GET">
+				  										<div class="form-group">
+					  										<label for = "Request" ><h3>Request A Book</h3></label>
+					  										<textarea name = "Request" id="Request" class="input-lg form-control" placeholder="Write Request" maxlength = "300" ></textarea>
 				  										</div>
-			  											<div class="panel panel-default">
+				  										<input class = "btn btn-default btn-lg " type = "button" value="Post" onclick="<? if(is_logged_in()){echo 'post_request()';}else{ echo 'gotologin()';} ?>">
+				  									</form>
+
+<?		  										
+		  $query = "SELECT * FROM `requests` INNER JOIN `users` ON `users`.`id` = `requests`.`id` ORDER BY `r_id` DESC";
+		  if($result = mysql_query($query)){
+		  	while($row = mysql_fetch_assoc($result)){
+		  		echo '										<div class="panel panel-default">
 				  												<div class = "panel-body"><br>
-				  													<p><span class ="text-info"><u>saurabh :</u></span> test comment by user 1<br><span class = "text-muted small"> Posted on February 4, 2017 </span></p>
-				  														<div class = "row">
-				  																	  														
-				  															<div class = "col-sm-1"></div>
-					  														<div class = "col-sm-10">
+				  													<p><span class ="text-info"><u>'. $row['name'] .' :</u></span>
+					  													 '. $row['post'] .'<br>
+					  													 <span class = "text-muted small"> Posted on '. date("F j, Y",$row['time']) .' </span>
+				  													</p>';
+				$sql = "SELECT `users`.`name`, `requests`.`r_id`, `comments`.`time`, `comments`.`comment` FROM `users` INNER JOIN `comments` ON `users`.`id` = `comments`.`id` INNER JOIN `requests` ON `requests`.`r_id` = `comments`.`p_id` WHERE `comments`.`p_id` = '". $row['r_id'] ."' ORDER BY `c_id`";
+				if ($run = mysql_query($sql)) {
+					while($r = mysql_fetch_assoc($run)){
+						echo '										<div class = "row">
+				  														<div class = "col-sm-1"></div>
+				  														<div class = "col-sm-10">
+																			<div id="replies_of_'. $r['r_id'].'">
+																				<p><span class ="text-info"><u>'. $r['name'] .' :</u></span>'. $r['comment'] .'<br>
+																					<span class = "text-muted small"> Posted on '. date("F j, Y", $r['time']) .'</span>
+																				</p>
+																			</div>					
+																		</div>
+					  													<div class = "col-sm-1"></div>	
+					  												</div>';
+					}
+				}else{
+					die($conn_error);
+				}
 
-					  																	<script type="text/javascript">
-																							function post_comment1(){
+				echo '											</div>
+				  											</div>';
+		  	}
+		  }else{
+		  	die($conn_error);
+		  }
+?>
 
-																								var comment = comment_form1.Comment.value;
-																								//alert(comment);
-																								if(comment == ""){
-																									alert("Please write some text to reply.");
-																								}
-																								var xmlhttp = new XMLHttpRequest();
-																								xmlhttp.onreadystatechange = function() {
-																									if (this.readyState == 4 && this.status == 200){
-																										var replies = document.getElementById("replies_of_1");
-																										replies.innerHTML = xmlhttp.responseText;
-																									}
-																								}
-																								xmlhttp.open("GET", "post_comment.php?Comment="+comment+"&Parent_id=1", true);
-																								xmlhttp.send();
-																								comment_form1.Comment.value = "";
-																							}
-																						</script>
-					  															
-					  															<div id="replies_of_1">	<p><span class ="text-info"><u>saurabh :</u></span> above was a request
-				  																						<br><span class = "text-muted small"> Posted on February 4, 2017 </span></p>	<p><span class ="text-info"><u>saurabh :</u></span> what was thar
-				  																						<br><span class = "text-muted small"> Posted on February 4, 2017 </span></p></div>										</div>
-					  														<div class = "col-sm-1"></div>	
+
+			  											<div class = "col-sm-1"></div>	
 					  													</div>
 					  																			
 				  												</div>

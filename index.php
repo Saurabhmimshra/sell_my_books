@@ -376,19 +376,21 @@
 
 				$sql = "SELECT `users`.`name`, `requests`.`r_id`, `comments`.`time`, `comments`.`comment` FROM `users` INNER JOIN `comments` ON `users`.`id` = `comments`.`id` INNER JOIN `requests` ON `requests`.`r_id` = `comments`.`p_id` WHERE `comments`.`p_id` = '". $row['r_id'] ."' ORDER BY `c_id`";
 				if ($run = mysql_query($sql)) {
-					while($r = mysql_fetch_assoc($run)){
+					
 						echo '										<div class = "row">
 				  														<div class = "col-sm-1"></div>
 				  														<div class = "col-sm-10">
-																			<div id="replies_of_'.$row['r_id'].'">
-																				<p><span class ="text-info"><u>'. $r['name'] .' :</u></span>'. $r['comment'] .'<br>
+																			<div id="replies_of_'.$row['r_id'].'">';
+						while($r = mysql_fetch_assoc($run)){	
+									echo '										<p><span class ="text-info"><u>'. $r['name'] .' :</u></span>'. $r['comment'] .'<br>
 																					<span class = "text-muted small"> Posted on '. date("F j, Y", $r['time']) .'</span>
-																				</p>
-																			</div>					
+																				</p>';
+						}
+							echo '												</div>					
 																		</div>
 					  													<div class = "col-sm-1"></div>	
 					  												</div>';
-					}
+					
 					echo 	'		
 																<div class = "row">
 																		<div class = "col-sm-1"></div>
